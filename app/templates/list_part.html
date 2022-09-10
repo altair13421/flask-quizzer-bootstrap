@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{%block app_content%}
+<table class="table table-hover">
+    <tr>
+        <td>Question</td>
+        <td>Answer</td>
+        <td>Quiz Name</td>
+        <td>Invigilator</td>
+        <td>Submitted User</td>
+    </tr>
+    {% if data %}
+    {% for item in data %} 
+        <tr>
+            <td>{{item['question']}}</td>
+            <td>{{item['answer']}}</td>
+            <td>{{item['quiz_name']}}</td>
+            <td>{{item['invigilator']}}</td>
+            <td>{{item['submitted_user']}}</td>
+        </tr>
+    {%endfor%}
+    {%endif%}
+</table>
+<p>End Of Line</p>
+{%endblock%}

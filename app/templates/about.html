@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{%block app_content%}
+    <table class="table table-hover">
+        <tr>
+            <td>Name: </td>
+            <td>{{user.name}}</td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td>{{user.type}}</td>
+        </tr>
+        {% if user.is_teacher() %}
+        <tr>
+            <td>Quizzes Added:</td>
+            <td><a class="btn" href="{{url_for('show_quizzes', id=user.id)}}">Show Quizzes Added >></a></td>
+        </tr>
+        {%endif%}
+        {% if user.is_student() %}
+        <tr>
+            <td>Quizzes Solved:</td>
+            <td><a class="btn" href="{{url_for('solved_quizzes', id=user.id)}}">Show Quizzes Solved >></a></td>
+        </tr>
+        {%endif%}
+        <tr>
+            <td>Last Seen:</td>
+            <td>{{user.last_seen}}</td>
+        </tr>
+    </table>
+    {% if current_user.is_admin() %}
+    {% if not user.is_admin() %}
+        <p><a class="btn" href="{{url_for('delete_user', id=user.id)}}">Delete</a></p>
+    {% endif %}
+    {%endif%}
+{%endblock%}

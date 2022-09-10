@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{%block app_content%}
+<table class="table table-hover">
+    {% if data %}
+    {% for item in data %} 
+        <tr>
+            <td>{{item.quiz_name}}</td>
+            {% if current_user.is_student() %}
+            <td><a href="{{url_for('start_attempt_quiz', quiz_id=item.id)}}">Attempt Quiz>></a></td>
+            {% endif %}
+            {% if current_user.is_teacher() %}
+            <td><a href="{{url_for('show_questions', teacher_id=item.invigilator.id, quiz_id=item.id)}}">Show Questions>></a></td>
+            {% endif %}
+            {% if current_user.is_admin() %}
+            <td><a href="{{url_for('show_questions', teacher_id=item.invigilator.id, quiz_id=item.id)}}">Show Questions>></a></td>
+            {% endif %}
+        </tr>
+    {%endfor%}
+    {%endif%}
+</table>
+<p>End Of Line</p>
+{%endblock%}
